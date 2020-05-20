@@ -1,0 +1,17 @@
+<h1>Dowloader</h1>
+<form action="{% url''}" method="post">
+    {{ form.as_p }}
+    <button type="submit" value="continue">Download</button>
+</form>
+{% for attachment in attachments%}
+<hr>
+
+    <p>Downloaded from {{ attachment.url }}</p>
+    <p>Status  {{ attachment.status }}</p>
+
+    <a href="/export/{{attachment.id}}/">Download</a>
+
+
+
+{% endfor %}
+<hr>
