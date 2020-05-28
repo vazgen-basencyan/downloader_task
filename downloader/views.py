@@ -9,8 +9,9 @@ from .models import Attachment
 @csrf_exempt
 def home(request):
     if request.method == 'POST':
-        url = request.POST['url']
-        download_task.delay(url)
+        form = DownloadForm(request.POST)
+        if form.is_valid():
+            form.save()
     form = DownloadForm()
     attachments = Attachment.objects.all()
     return render(request, 'downloader/home.html', {'form': form, 'attachments': attachments},)

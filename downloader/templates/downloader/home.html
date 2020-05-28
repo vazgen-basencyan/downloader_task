@@ -1,5 +1,5 @@
 <h1>Dowloader</h1>
-<form action="{% url''}" method="post">
+<form action={% url "home" %} method="post">
     {{ form.as_p }}
     <button type="submit" value="continue">Download</button>
 </form>
@@ -7,7 +7,7 @@
 <hr>
 
     <p>Downloaded from {{ attachment.url }}</p>
-    <p>Status  {{ attachment.status }}</p>
+    <p>Status  {{ attachment.get_status_display }}</p>
 
     <a href="/export/{{attachment.id}}/">Download</a>
 

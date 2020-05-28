@@ -7,8 +7,9 @@ from downloader.models import Attachment
 
 
 @shared_task
-def download_task(url):
-    attachment = Attachment.objects.create(url=url, status="Downloading")
+def download_task(attachment_id):
+    attachment = Attachment.objects.get(id=attachment_id)
+    url = attachment.url
     try:
         split_link = url.split('/')
         file_name = split_link[-1:][0]
@@ -18,7 +19,7 @@ def download_task(url):
         file.name = file_name
 
         attachment.file = file
-        attachment.status = "Completed"
+        attachment.status = Attachment.DONE
     except:
-        attachment.status = "Failed"
+        attachment.status = Attachment.FAILED
     attachment.save()
